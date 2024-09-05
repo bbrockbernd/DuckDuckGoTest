@@ -78,6 +78,18 @@ class SavedSiteSyncPausedViewModelTest {
         }
     }
 
+    @Test
+    fun ExtraTest() = runTest {
+        val testee = SavedSiteSyncPausedViewModel(
+            savedSitesSyncStore,
+            coroutineRule.testDispatcherProvider,
+        )
+
+        testee.onWarningActionClicked()
+        testee.onWarningActionClicked() // <-- comment to disable deadlock
+
+    }
+
     private fun givenNoError() {
         savedSitesSyncStore.isSyncPaused = false
     }
